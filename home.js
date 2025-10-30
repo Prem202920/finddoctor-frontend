@@ -7,7 +7,7 @@ let doctorsData = [];
 // Fetch doctors from backend
 async function fetchDoctors() {
   try {
-    const res = await fetch("http://localhost:5000/api/doctors");
+    const res = await fetch("https://finddoctor-backend.onrender.com/api/doctors");
     doctorsData = await res.json();
 
     if (!Array.isArray(doctorsData)) {

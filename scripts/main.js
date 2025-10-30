@@ -3,7 +3,7 @@ const doctorsContainer = document.getElementById("doctors-list");
 
 async function loadDoctors() {
   try {
-    const res = await fetch("http://localhost:5000/api/doctors");
+    const res = await fetch("https://finddoctor-backend.onrender.com/api/doctors");
     const doctors = await res.json();
     doctorsContainer.innerHTML = doctors.map(d => `
       <div>

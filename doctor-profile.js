@@ -20,7 +20,7 @@ async function fetchDoctor() {
   }
 
   try {
-    const res = await fetch(`http://localhost:5000/api/doctors/${doctorId}`);
+    const res = await fetch(`https://finddoctor-backend.onrender.com/api/doctors/${doctorId}`);
     if (!res.ok) throw new Error("Doctor not found");
     const doctor = await res.json();
 
@@ -65,7 +65,7 @@ form.addEventListener("submit", async (e) => {
   }
 
   try {
-    const res = await fetch("http://localhost:5000/api/appointments", {
+    const res = await fetch("https://finddoctor-backend.onrender.com/api/appointments", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

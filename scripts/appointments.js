@@ -2,7 +2,7 @@
 async function bookAppointment(userId, doctorId, date, time) {
   const token = localStorage.getItem("token");
 
-  const res = await fetch("http://localhost:5000/api/appointments", {
+  const res = await fetch("https://finddoctor-backend.onrender.com/api/appointments", {
     method: "POST",
     headers: { 
       "Content-Type": "application/json",
