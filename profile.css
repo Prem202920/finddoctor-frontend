@@ -1,0 +1,118 @@
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  background-color: #f6f9fc;
+  color: #333;
+}
+
+/* Navbar */
+header {
+  background-color: #7494ec;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 40px;
+}
+
+header .logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+header nav a {
+  color: white;
+  text-decoration: none;
+  margin-left: 25px;
+  font-weight: 500;
+}
+
+header nav a:hover {
+  text-decoration: underline;
+}
+
+/* Profile */
+.profile-container {
+  max-width: 600px;
+  margin: 50px auto;
+  background: white;
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.profile-container h2 {
+  text-align: center;
+  color: #007bff;
+  margin-bottom: 25px;
+}
+
+.profile-card {
+  text-align: center;
+}
+
+.profile-pic {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.profile-pic img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #7494ec;
+}
+
+.profile-pic input {
+  display: block;
+  margin: 10px auto;
+}
+
+.form-group {
+  text-align: left;
+  margin: 15px 0;
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.update-btn {
+  width: 100%;
+  background: #007bff;
+  color: white;
+  padding: 12px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.update-btn:hover {
+  background: #0056b3;
+}
+
+/* Footer */
+footer {
+  background-color: #7494ec;
+  color: white;
+  text-align: center;
+  padding: 15px;
+  margin-top: 40px;
+}
+
+html {
+  scroll-behavior: smooth;
+}

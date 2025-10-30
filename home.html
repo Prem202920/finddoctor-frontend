@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FindDoctor</title>
+    <link rel="stylesheet" href="home.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <header>
+        <div class="logo">FindDoctor</div>
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search by name, specialization, or city...">
+            <i class='bx bx-search'></i>
+        </div>
+        <div class="profile-dropdown">
+            <img id="navbarProfileImage" class="profile-pic" src="images/default-user.jpeg" alt="Profile">
+            <span id="navbarUserName">Guest</span>
+            <div class="dropdown-content">
+               <a href="profile.html">Profile</a>
+               <a href="#doctor">Doctors</a>
+               <a href="#footer">Contact Us</a>
+               <a href="login.html">Logout</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Find the Best Doctors Near You</h2>
+            <p>Your health is our priority. Search for trusted professionals and book appointments easily.</p>
+        </div>
+    </section>
+
+    <!-- Main content -->
+    <main>
+        <section id="doctor" class="doctors-section">
+            <h2>Available Doctors</h2>
+            <div class="doctor-list">
+                <p>Loading doctors...</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="footer-content">
+            <h3>FindDoctor</h3>
+            <p>Your trusted doctor search platform.</p>
+            <p>Email: finddoctor@gmail.com</p>
+            <p>Phone: +91-8767389558</p>
+            <p>Address: Pune, India</p>
+            <div class="social-icons">
+                <a href="#"><i class='bx bxl-facebook'></i></a>
+                <a href="#"><i class='bx bxl-linkedin'></i></a>
+                <a href="#"><i class='bx bxl-twitter'></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="home.js"></script>
+</body>
+</html>

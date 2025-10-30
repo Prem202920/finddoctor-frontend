@@ -1,0 +1,255 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    background: linear-gradient(90deg, #e2e2e2, #c9d6ff);
+    min-height: 100vh;
+}
+
+/* Navbar */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 50px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+header .logo {
+    font-size: 24px;
+    font-weight: 700;
+    color: #7494ec;
+}
+
+header .search-bar {
+    position: relative;
+    width: 50%;
+}
+
+header .search-bar input {
+    width: 100%;
+    padding: 10px 40px 10px 15px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    outline: none;
+    font-size: 16px;
+}
+
+header .search-bar i {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    color: #7494ec;
+}
+
+/* ---- Navbar Profile Section ---- */
+.profile-dropdown {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+}
+
+/* ✅ Fix: Profile image stays small and circular */
+.profile-dropdown img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #fff;
+    transition: transform 0.2s ease;
+}
+
+.profile-dropdown img:hover {
+    transform: scale(1.05);
+}
+
+.profile-dropdown span {
+    font-weight: 500;
+    color: #333;
+}
+
+/* Dropdown menu styling */
+.profile-dropdown .dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 50px;
+    background-color: #fff;
+    min-width: 140px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    border-radius: 8px;
+    overflow: hidden;
+    z-index: 50;
+}
+
+.profile-dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.profile-dropdown .dropdown-content a {
+    display: block;
+    padding: 10px;
+    color: #333;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.profile-dropdown .dropdown-content a:hover {
+    background-color: #7494ec;
+    color: #fff;
+}
+
+/* Hero Section */
+.hero {
+  background: url("images/hero-banner.png") no-repeat center center/cover;
+  height: 85vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: black;
+  position: relative;
+}
+
+/* Optional overlay for better text contrast */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 700px;
+}
+
+.hero-content p {
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+  .hero-content h1 {
+    font-size: 2rem;
+  }
+}
+
+/* Doctor cards */
+main {
+    padding: 30px 50px;
+}
+
+.doctor-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.doctor-card {
+    background-color: #fff;
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+}
+
+.doctor-card:hover {
+    transform: translateY(-5px);
+}
+
+.doctor-card img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+}
+
+.doctor-card h3 {
+    color: #7494ec;
+    margin-bottom: 5px;
+}
+
+.doctor-card p {
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.doctor-card button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    background-color: #7494ec;
+    color: #fff;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.doctor-card button:hover {
+    background-color: #5a7ddf;
+}
+
+/* Footer */
+footer {
+    background-color: #fff;
+    padding: 30px 50px;
+    text-align: center;
+    margin-top: 50px;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+}
+
+footer h3 {
+    color: #7494ec;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+footer p {
+    color: #555;
+    margin: 5px 0;
+}
+
+footer .social-icons a {
+    margin: 0 8px;
+    color: #7494ec;
+    font-size: 20px;
+    transition: 0.3s;
+}
+
+footer .social-icons a:hover {
+    color: #5a7ddf;
+}
+
+/* Responsive */
+@media screen and (max-width: 768px){
+    header {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    header .search-bar {
+        width: 100%;
+    }
+}
+
+html {
+    scroll-behavior: smooth;
+}

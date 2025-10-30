@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Profile | FindDoctor</title>
+  <link rel="stylesheet" href="profile.css" />
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header>
+    <div class="logo">FindDoctor</div>
+    <nav>
+      <a href="home.html">Home</a>
+      <a href="#footer">Contact</a>
+      <a href="login.html">Logout</a>
+    </nav>
+  </header>
+
+  <!-- Profile Section -->
+  <section class="profile-container">
+    <h2>My Profile</h2>
+
+    <div class="profile-card">
+      <div class="profile-pic">
+        <img id="profileImage" src="images/default-user.png" alt="User Profile">
+        <input type="file" id="uploadImage" accept="image/*" />
+      </div>
+
+      <form id="profileForm">
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" id="name" placeholder="Enter your name" required>
+        </div>
+
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="email" placeholder="Enter your email" required>
+        </div>
+
+        <div class="form-group">
+          <label>Contact Number</label>
+          <input type="text" id="contact" placeholder="Enter your phone number" required>
+        </div>
+
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="password" placeholder="Enter new password" required>
+        </div>
+
+        <button type="submit" class="update-btn">Update Profile</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer id="footer">
+    <div class="footer-content">
+      <h3>FindDoctor</h3>
+      <p>Email: finddoctor@gmail.com | Phone: +91-8767389558</p>
+    </div>
+  </footer>
+
+ <script>
+const uploadImage = document.getElementById("uploadImage");
+const profileImage = document.getElementById("profileImage");
+const form = document.getElementById("profileForm");
+
+const userId = localStorage.getItem("userId");
+const token = localStorage.getItem("token");
+
+// Fetch current user data from backend
+async function fetchUser() {
+    if (!userId || !token) return;
+
+    try {
+        const res = await fetch(`http://localhost:5000/api/users/${userId}`, {
+            headers: { "Authorization": `Bearer ${token}` }
+        });
+        if (!res.ok) throw new Error("Failed to fetch profile");
+
+        const user = await res.json();
+
+        // ✅ Ensure correct image URL (works even if backend returns relative path)
+        const imageUrl = user.image?.startsWith("http")
+            ? user.image
+            : `http://localhost:5000${user.image}`;
+        profileImage.src = imageUrl || "images/default-user.png";
+
+        document.getElementById("name").value = user.name;
+        document.getElementById("email").value = user.email;
+        document.getElementById("contact").value = user.contact || "";
+        document.getElementById("password").value = ""; // leave blank
+    } catch (err) {
+        console.error("Fetch user error:", err);
+    }
+}
+
+// Image preview before upload
+uploadImage.addEventListener("change", () => {
+    const file = uploadImage.files[0];
+    if (file) {
+        profileImage.src = URL.createObjectURL(file);
+    }
+});
+
+// Update profile
+form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const contact = document.getElementById("contact").value.trim();
+    const password = document.getElementById("password").value.trim();
+
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("email", email);
+    formData.append("contact", contact);
+    if (password) formData.append("password", password);
+    if (uploadImage.files[0]) formData.append("image", uploadImage.files[0]);
+
+    try {
+        const res = await fetch(`http://localhost:5000/api/users/${userId}`, {
+            method: "PUT",
+            headers: { "Authorization": `Bearer ${token}` },
+            body: formData
+        });
+
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.message || "Update failed");
+
+        alert("Profile updated successfully!");
+
+        // ✅ Fix: Use absolute image path for storage
+        const fullImageUrl = data.image?.startsWith("http")
+            ? data.image
+            : `http://localhost:5000${data.image}`;
+
+        // ✅ Update localStorage for navbar refresh
+        localStorage.setItem("userName", data.name);
+        localStorage.setItem("userImage", fullImageUrl || "images/default-user.png");
+
+        // Refresh to reflect new info in navbar
+        window.location.reload();
+
+    } catch (err) {
+        console.error("Update error:", err);
+        alert(err.message);
+    }
+});
+
+// Initial fetch
+fetchUser();
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FindDoctor | Login / Register</title>
+    <link rel="stylesheet" href="login.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+
+<div class="container">
+    <div class="form-box login">
+        <form id="loginForm">
+            <h1>Login</h1>
+            <div class="input-box">
+                <input type="email" placeholder="Email" required>
+                <i class='bx bxs-user'></i>
+            </div>
+            <div class="input-box">
+                <input type="password" placeholder="Password" required>
+                <i class='bx bxs-lock-alt' ></i>
+            </div>
+            <div class="forgot-link">
+                <a href="#">Forgot Password?</a>
+            </div>
+            <button type="submit" class="btn">Login</button>
+            <p>or login with</p>
+            <div class="social-icons">
+                <a href="https://myaccount.google.com"><i class='bx bxl-google' ></i></a>
+                <a href="https://www.facebook.com"><i class='bx bxl-facebook' ></i></a>
+                <a href="https://github.com/login"><i class='bx bxl-github' ></i></a>
+                <a href="https://www.linkedin.com/login"><i class='bx bxl-linkedin' ></i></a>
+            </div>
+        </form>
+    </div>
+
+    <div class="form-box register">
+        <form id="registerForm">
+            <h1>Register</h1>
+            <div class="input-box">
+                <input type="text" placeholder="Username" required>
+                <i class='bx bxs-user'></i>
+            </div>
+            <div class="input-box">
+                <input type="email" placeholder="Email" required>
+                <i class='bx bxs-envelope' ></i>
+            </div>
+            <div class="input-box">
+                <input type="password" placeholder="Password" required>
+                <i class='bx bxs-lock-alt' ></i>
+            </div>
+            <button type="submit" class="btn">Register</button>
+            <p>or register with</p>
+            <div class="social-icons">
+                <a href="https://myaccount.google.com"><i class='bx bxl-google' ></i></a>
+                <a href="https://www.facebook.com"><i class='bx bxl-facebook' ></i></a>
+                <a href="https://github.com/login"><i class='bx bxl-github' ></i></a>
+                <a href="https://www.linkedin.com/login"><i class='bx bxl-linkedin' ></i></a>
+            </div>
+        </form>
+    </div>
+
+    <div class="toggle-box">
+        <div class="toggle-panel toggle-left">
+            <h1>Hello, Welcome!</h1>
+            <p>Don't have an account?</p>
+            <button class="btn register-btn">Register</button>
+        </div>
+
+        <div class="toggle-panel toggle-right">
+            <h1>Welcome Back!</h1>
+            <p>Already have an account?</p>
+            <button class="btn login-btn">Login</button>
+        </div>
+    </div>
+</div>
+
+<script>
+const container = document.querySelector('.container');
+const registerBtn = document.querySelector('.register-btn');
+const loginBtn = document.querySelector('.login-btn');
+
+registerBtn.addEventListener('click', () => {
+    container.classList.add('active');
+});
+loginBtn.addEventListener('click', () => {
+    container.classList.remove('active');
+});
+
+// ---------------- LOGIN ----------------
+const loginForm = document.getElementById('loginForm');
+loginForm.addEventListener('submit', async function(e){
+    e.preventDefault();
+    const email = this.querySelector('input[type="email"]').value.trim(); // treat as email
+    const password = this.querySelector('input[type="password"]').value.trim();
+
+    if(!email || !password) {
+        alert("Please enter email and password");
+        return;
+    }
+
+    try {
+        const res = await fetch("http://localhost:5000/api/users/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password })
+        });
+
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.message || "Login failed");
+
+        // store token & user info in localStorage
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("userId", data.user.id);
+        localStorage.setItem("userName", data.user.name);
+
+        alert(`Welcome, ${data.user.name}!`);
+        window.location.href = "home.html";
+    } catch (err) {
+        console.error(err);
+        alert(err.message);
+    }
+});
+
+// ---------------- REGISTER ----------------
+const registerForm = document.getElementById('registerForm');
+registerForm.addEventListener('submit', async function(e){
+    e.preventDefault();
+    const name = this.querySelector('input[type="text"]').value.trim();
+    const email = this.querySelector('input[type="email"]').value.trim();
+    const password = this.querySelector('input[type="password"]').value.trim();
+
+    if(!name || !email || !password) {
+        alert("Please fill in all fields.");
+        return;
+    }
+
+    try {
+        const res = await fetch("http://localhost:5000/api/users/register", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name, email, password })
+        });
+
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.message || "Registration failed");
+
+        alert("Registration successful! You can now login.");
+        container.classList.remove('active'); // switch to login form
+    } catch (err) {
+        console.error(err);
+        alert(err.message);
+    }
+});
+</script>
+
+
+
+</body>
+</html>
