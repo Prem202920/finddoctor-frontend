@@ -71,12 +71,15 @@ const form = document.getElementById("profileForm");
 const userId = localStorage.getItem("userId");
 const token = localStorage.getItem("token");
 
+// 🔗 Your live backend base URL
+const BASE_URL = "https://finddoctor-backend.onrender.com";
+
 // Fetch current user data from backend
 async function fetchUser() {
     if (!userId || !token) return;
 
     try {
-        const res = await fetch(`http://localhost:5000/api/users/${userId}`, {
+        const res = await fetch(`${BASE_URL}/api/users/${userId}`, {
             headers: { "Authorization": `Bearer ${token}` }
         });
         if (!res.ok) throw new Error("Failed to fetch profile");
@@ -86,7 +89,7 @@ async function fetchUser() {
         // ✅ Ensure correct image URL (works even if backend returns relative path)
         const imageUrl = user.image?.startsWith("http")
             ? user.image
-            : `http://localhost:5000${user.image}`;
+            : `${BASE_URL}${user.image}`;
         profileImage.src = imageUrl || "images/default-user.png";
 
         document.getElementById("name").value = user.name;
@@ -123,7 +126,7 @@ form.addEventListener("submit", async (e) => {
     if (uploadImage.files[0]) formData.append("image", uploadImage.files[0]);
 
     try {
-        const res = await fetch(`http://localhost:5000/api/users/${userId}`, {
+        const res = await fetch(`${BASE_URL}/api/users/${userId}`, {
             method: "PUT",
             headers: { "Authorization": `Bearer ${token}` },
             body: formData
@@ -137,7 +140,7 @@ form.addEventListener("submit", async (e) => {
         // ✅ Fix: Use absolute image path for storage
         const fullImageUrl = data.image?.startsWith("http")
             ? data.image
-            : `http://localhost:5000${data.image}`;
+            : `${BASE_URL}${data.image}`;
 
         // ✅ Update localStorage for navbar refresh
         localStorage.setItem("userName", data.name);
@@ -155,6 +158,7 @@ form.addEventListener("submit", async (e) => {
 // Initial fetch
 fetchUser();
 </script>
+
 
 
 </body>
